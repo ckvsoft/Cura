@@ -125,9 +125,9 @@ jobs:
             -   name: Temporary Hack For 'Linux-Modern'
                 if: ${{ runner.os == 'Linux' && startsWith(inputs.platform, 'ubuntu-22.04') }}
                 run: |
-                    sudo dpkg-divert --divert /usr/lib/x86_64-linux-gnu/libodbc.so.2.0.0 --rename /tmp/libodbc.so.2.0.0
-                    sudo dpkg-divert --divert /usr/lib/x86_64-linux-gnu/libodbcinst.so.2.0.0 --rename /tmp/libodbcinst.so.2.0.0
-                    sudo dpkg-divert --divert /etc/odbc.ini --rename /tmp/odbc.ini
+                    sudo dpkg-divert --rename /usr/lib/x86_64-linux-gnu/libodbc.so.2.0.0 --divert /tmp/libodbc.so.2.0.0
+                    sudo dpkg-divert --rename /usr/lib/x86_64-linux-gnu/libodbcinst.so.2.0.0 --divert /tmp/libodbcinst.so.2.0.0
+                    sudo dpkg-divert --rename /etc/odbc.ini --divert /tmp/odbc.ini
 
             -   name: Install Linux system requirements
                 if: ${{ runner.os == 'Linux' }}
