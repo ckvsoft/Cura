@@ -122,6 +122,13 @@ jobs:
                 if:  ${{ runner.os == 'Macos' }}
                 run: brew install autoconf automake ninja create-dmg # Delete create-dmg when deprecating dmg
 
+            -   name: Temporary Hack For 'Linux-Modern'
+                if: ${{ runner.os == 'Linux' && startsWith(inputs.platform, 'ubuntu-22.04') }}
+                run: |
+                    sudo dpkg-divert --package libodbc2:amd64 --divert /usr/lib/x86_64-linux-gnu/libodbc.so.2.0.0 --rename /tmp/libodbc.so.2.0.0
+                    sudo dpkg-divert --package libodbcinst2:amd64 --divert /usr/lib/x86_64-linux-gnu/libodbcinst.so.2.0.0 --rename /tmp/libodbcinst.so.2.0.0
+                    sudo dpkg-divert --package unixodbc-common --divert /etc/odbc.ini --rename /etc/odbc.ini
+
             -   name: Install Linux system requirements
                 if: ${{ runner.os == 'Linux' }}
                 run: |
