@@ -124,10 +124,7 @@ jobs:
 
             -   name: Ugly Hack For 'Linux-Modern'
                 if: ${{ runner.os == 'Linux' && startsWith(inputs.platform, 'ubuntu-22.04') }}
-                run: |
-                    sudo rm -rf /usr/lib/x86_64-linux-gnu/libodbc.so.2.0.0
-                    sudo rm -rf /usr/lib/x86_64-linux-gnu/libodbcinst.so.2.0.0
-                    sudo rm -rf /etc/odbc.ini
+                run: sudo dpkg --configure --force-overwrite -a
 
             -   name: Install Linux system requirements
                 if: ${{ runner.os == 'Linux' }}
