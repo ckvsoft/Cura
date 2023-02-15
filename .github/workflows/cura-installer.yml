@@ -122,13 +122,10 @@ jobs:
                 if:  ${{ runner.os == 'Macos' }}
                 run: brew install autoconf automake ninja create-dmg # Delete create-dmg when deprecating dmg
 
-            -   name: Ugly Hack For 'Linux-Modern'
-                if: ${{ runner.os == 'Linux' && startsWith(inputs.platform, 'ubuntu-22.04') }}
-                run: sudo dpkg --configure --force-overwrite -a
-
             -   name: Install Linux system requirements
                 if: ${{ runner.os == 'Linux' }}
                 run: |
+                    sudo dpkg --configure --force-overwrite -a
                     sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
                     sudo apt update
                     sudo apt upgrade
